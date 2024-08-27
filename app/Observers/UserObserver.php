@@ -8,9 +8,7 @@ class UserObserver
 {
     public function saving(User $user): void
     {
-        if ($user->isDirty('password')) {
-            $user->password = bcrypt($user->password);
-        } else {
+        if (!$user->password) {
             unset($user->password);
         }
 
