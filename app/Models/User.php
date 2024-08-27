@@ -64,6 +64,11 @@ class User  extends Authenticatable implements FilamentUser
         return $this->hasOne(Wallet::class);
     }
 
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class, 'payer_id');
+    }
+
     public function isAdmin()
     {
         return $this->role_id === Role::ADMIN;
