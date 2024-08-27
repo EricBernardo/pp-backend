@@ -39,7 +39,7 @@ class UserResource extends Resource
                     ->password()
                     ->maxLength(255)
                     ->minLength(8)
-                    ->required(fn ($component, $get, $livewire, $model, $record, $set, $state) => $record === null),
+                    ->required(fn($component, $get, $livewire, $model, $record, $set, $state) => $record === null),
                 Forms\Components\TextInput::make('passwordConfirmation')
                     ->password()
                     ->maxLength(255),
@@ -60,6 +60,10 @@ class UserResource extends Resource
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('email')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('wallet.balance')
+                    ->prefix('R$')
                     ->searchable()
                     ->sortable(),
             ])
