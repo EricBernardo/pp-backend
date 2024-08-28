@@ -74,6 +74,11 @@ class User  extends Authenticatable implements FilamentUser
         return $this->role_id === Role::ADMIN;
     }
 
+    public function isRetailer()
+    {
+        return $this->role_id === Role::RETAILER;
+    }
+
     public function canAccessPanel(Panel $panel): bool
     {
         return $this->isAdmin();
