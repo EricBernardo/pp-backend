@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\UserResource\Pages;
 use App\Models\User;
 use Filament\Forms;
+use Filament\Forms\Components\Group;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -40,10 +41,17 @@ class UserResource extends Resource
                     ->password()
                     ->maxLength(255)
                     ->minLength(8)
-                    ->required(fn($component, $get, $livewire, $model, $record, $set, $state) => $record === null),
+                    ->required(fn($record) => $record === null),
                 Forms\Components\TextInput::make('passwordConfirmation')
                     ->password()
                     ->maxLength(255),
+                Group::make()
+                    ->relationship('wallet')
+                    ->schema([
+                        Forms\Components\TextInput::make('balance')
+                            ->prefix('R$')
+                            ->required(),
+                    ])
             ]);
     }
 
