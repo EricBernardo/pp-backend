@@ -22,6 +22,7 @@ class UserTableSeeder extends Seeder
                 'name'           => 'Admin',
                 'password'       => bcrypt('password'),
                 'role_id'        => Role::ADMIN,
+                'document_number' => '09886651075'
             ]
         );
     }
