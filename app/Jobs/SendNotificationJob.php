@@ -34,14 +34,18 @@ class SendNotificationJob implements ShouldQueue
      */
     public function handle()
     {
-        $notificationResponse = Http::post('https://util.devi.tools/api/v1/notify', [
-            'transaction_id' => $this->transaction->id,
-            'message' => 'Você recebeu uma transferência de ' . $this->transaction->payer->name,
-        ]);
+        $notify = config('devi_tools.notify');
 
-        if ($notificationResponse->failed()) {
-            Log::error('Error sending notification for transaction ' . $this->transaction->id);
-            $this->release(60);
+        if ($notify) {
+            $notificationResponse = Http::post($notify, [
+                'transaction_id' => $this->transaction->id,
+                'message' => 'Você recebeu uma transferência de ' . $this->transaction->payer->name,
+            ]);
+
+            if ($notificationResponse->failed()) {
+                Log::error('Error sending notification for transaction ' . $this->transaction->id);
+                $this->release(60);
+            }
         }
     }
 }

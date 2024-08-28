@@ -8,7 +8,13 @@ class AuthorizationService
 {
     public function isAuthorized(): bool
     {
-        $response = Http::get('https://util.devi.tools/api/v2/authorize');
+        $authorize = config('devi_tools.authorize');
+
+        if (!$authorize) {
+            return false;
+        }
+
+        $response = Http::get($authorize);
 
         return !$response->failed();
     }
