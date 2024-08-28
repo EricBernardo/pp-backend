@@ -28,7 +28,8 @@ class UserResource extends Resource
                     ->maxLength(255),
                 Forms\Components\TextInput::make('document_number')
                     ->unique(User::class, 'document_number', ignoreRecord: true)
-                    ->rules(['cpf_ou_cnpj']),
+                    ->rules(['cpf_ou_cnpj'])
+                    ->required(),
                 Forms\Components\TextInput::make('email')
                     ->email()
                     ->required()
